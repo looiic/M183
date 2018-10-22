@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import ch.gibm.entity.Auto;
 import ch.gibm.entity.Kunde;
 import ch.gibm.facade.KundeFacade;
 
@@ -17,10 +18,52 @@ public class KundeBean extends AbstractBean implements Serializable {
 	private static final String SELECTED_KUNDE = "selectedKunde";
 
 	private Kunde kunde;
+	private Kunde kundeWithAutos;
 	private Kunde kundeForDetail;
+	
+	private Auto auto;
 
 	private List<Kunde> kunden;
 	private KundeFacade kundeFacade;
+	
+	public void addAutoToKunde() {
+		try {
+			getKundenFacade().addAutoToKunde(auto.getId(), kundeWithAutos.getId());
+			closeDialog();
+			displayInfoMessageToUser("Added with success");
+			reloadKundeWithAutos();
+			resetAuto();
+		} catch (Exception e) {
+			keepDialogOpen();
+			displayErrorMessageToUser("A problem occurred while saving. Try again later");
+			e.printStackTrace();
+		}
+	}
+
+	public void removeLanguageFromPerson() {
+		try {
+			getKundenFacade().removeAutoFromKunde(auto.getId(), kundeWithAutos.getId());
+			closeDialog();
+			displayInfoMessageToUser("Removed with success");
+			reloadKundeWithAutos();
+			resetAuto();
+		} catch (Exception e) {
+			keepDialogOpen();
+			displayErrorMessageToUser("A problem occurred while removing. Try again later");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private void reloadKundeWithAutos() {
+		//kundeWithAutos = getKundenFacade().findKundeWithAllAutos(kunde.getId());
+	}
+	
+	public void resetAuto() {
+		auto = new Auto();
+	}
+	
+	
 
 	public void createKunde() {
 		try {

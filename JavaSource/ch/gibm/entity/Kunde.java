@@ -1,9 +1,12 @@
 package ch.gibm.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 
 @Entity
@@ -21,6 +24,9 @@ public class Kunde {
 	private String hausnummer;
 	private String postleitzahl;
 	private String ort;
+	
+	@ManyToMany(mappedBy="kunde")
+	private List<Auto> autos;
 
 	public int getId() {
 		return id;
@@ -77,6 +83,14 @@ public class Kunde {
 
 	public void setOrt(String ort) {
 		this.ort = ort;
+	}	
+
+	public List<Auto> getAutos() {
+		return autos;
+	}
+
+	public void setAutos(List<Auto> autos) {
+		this.autos = autos;
 	}
 
 	@Override

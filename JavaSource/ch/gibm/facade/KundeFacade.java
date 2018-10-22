@@ -3,12 +3,15 @@ package ch.gibm.facade;
 import java.util.List;
 
 import ch.gibm.dao.KundeDAO;
+import ch.gibm.dao.AutoDAO;
 import ch.gibm.dao.EntityManagerHelper;
+import ch.gibm.entity.Auto;
 import ch.gibm.entity.Kunde;
 
 public class KundeFacade {
 	
 	private KundeDAO kundeDAO = new KundeDAO();
+	private AutoDAO autoDAO = new AutoDAO();
 	
 	public void createKunde(Kunde kunde) {
 		EntityManagerHelper.beginTransaction();
@@ -50,5 +53,23 @@ public class KundeFacade {
 		EntityManagerHelper.commitAndCloseTransaction();
 
 		return result;
+	}
+	
+	public void addAutoToKunde(int autoId, int kundeId) {
+		EntityManagerHelper.beginTransaction();
+		Auto auto = autoDAO.find(kundeId);
+		Kunde kunde = kundeDAO.find(kundeId);
+		kunde.getAutos().add(auto);
+		auto.getKunden().add(kunde);
+		EntityManagerHelper.commitAndCloseTransaction();
+	}
+
+	public void removeAutoFromKunde(int autoId, int kundenId) {
+		EntityManagerHelper.beginTransaction();
+		Auto auto = autoDAO.find(autoId);
+		Kunde kunde = kundeDAO.find(kundenId);
+		kunde.getAutos().remove(auto);
+		auto.getKunden().remove(kunde);
+		EntityManagerHelper.commitAndCloseTransaction();
 	}
 }

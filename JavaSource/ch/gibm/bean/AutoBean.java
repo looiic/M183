@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.log4j.Logger;
+
 import ch.gibm.entity.Auto;
 import ch.gibm.facade.AutoFacade;
 
@@ -14,8 +16,11 @@ import ch.gibm.facade.AutoFacade;
 public class AutoBean extends AbstractBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	
 	private static final String SELECTED_AUTO = "selectedAuto";
-
+	
+	private static final Logger logger = Logger.getLogger(AutoBean.class);
+	
 	private Auto auto;
 	private Auto autoForDetail;
 
@@ -33,6 +38,7 @@ public class AutoBean extends AbstractBean implements Serializable {
 			keepDialogOpen();
 			displayErrorMessageToUser("A problem occurred while saving. Try again later");
 			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 

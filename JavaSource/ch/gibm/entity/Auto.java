@@ -1,9 +1,12 @@
 package ch.gibm.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 
 @Entity
@@ -18,6 +21,9 @@ public class Auto {
 	private String name;
 	private int jahrgang;
 	private boolean status;
+	
+	@ManyToMany
+	private List<Kunde> kunden;
 
 	public int getId() {
 		return id;
@@ -50,7 +56,14 @@ public class Auto {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	
+	public List<Kunde> getKunden() {
+		return kunden;
+	}
 
+	public void setKunden(List<Kunde> kunden) {
+		this.kunden = kunden;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
