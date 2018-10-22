@@ -9,10 +9,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = "User.getUserByName", query = "select u from User u where u.username = :name")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public static final String GET_USER_BY_NAME = "User.getUserByName";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

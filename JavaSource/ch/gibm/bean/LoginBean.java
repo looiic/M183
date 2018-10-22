@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import ch.gibm.entity.Role;
 import ch.gibm.entity.User;
+import ch.gibm.facade.AutoFacade;
+import ch.gibm.facade.UserFacade;
+import ch.gibm.util.BCrypt;
 
 @ManagedBean
 @RequestScoped
@@ -17,17 +20,23 @@ public class LoginBean extends AbstractBean{
 	@ManagedProperty(value = UserBean.DI_NAME)
 	private UserBean userBean;
 	
+	private UserFacade userFacade;
+	
 	private String username;
 	private String password;
 	
 	public void login() {
 		
+		User user = getUserFacade().getUserByName(username);
+		
 		//now, always a pseudo admin user is logged in
 		//you have to implement a safe login mechanism
-		User user = new User("admin", "12345678", Role.ADMIN);
-		user.setEmail("admin@gibmit.ch");
+		//User user = new User("admin", "12345678", Role.ADMIN);
+		//user.setEmail("admin@gibmit.ch");
 		
-		if(user != null) {
+		
+		
+		if(BCrypt.checkpw(password, user.getPassword())) {
 			userBean.setLoggedInUser(user);
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletRequest req = (HttpServletRequest)context.getExternalContext().getRequest();
@@ -37,6 +46,14 @@ public class LoginBean extends AbstractBean{
 			displayErrorMessageToUser("Wrong Username/Password. Try again");
 		}
 		
+	}
+	
+	public UserFacade getUserFacade() {
+		if (userFacade == null) {
+			userFacade = new UserFacade();
+		}
+
+		return userFacade;
 	}
 	
 	public String getUserName() {
