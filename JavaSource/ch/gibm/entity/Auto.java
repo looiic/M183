@@ -22,8 +22,6 @@ public class Auto {
 	private int jahrgang;
 	private boolean status;
 	
-	@ManyToMany
-	private List<Kunde> kunden;
 
 	public int getId() {
 		return id;
@@ -57,13 +55,7 @@ public class Auto {
 		this.status = status;
 	}
 	
-	public List<Kunde> getKunden() {
-		return kunden;
-	}
 
-	public void setKunden(List<Kunde> kunden) {
-		this.kunden = kunden;
-	}
 
 	@Override
 	public boolean equals(Object obj) {

@@ -55,21 +55,5 @@ public class KundeFacade {
 		return result;
 	}
 	
-	public void addAutoToKunde(int autoId, int kundeId) {
-		EntityManagerHelper.beginTransaction();
-		Auto auto = autoDAO.find(kundeId);
-		Kunde kunde = kundeDAO.find(kundeId);
-		kunde.getAutos().add(auto);
-		auto.getKunden().add(kunde);
-		EntityManagerHelper.commitAndCloseTransaction();
-	}
 
-	public void removeAutoFromKunde(int autoId, int kundenId) {
-		EntityManagerHelper.beginTransaction();
-		Auto auto = autoDAO.find(autoId);
-		Kunde kunde = kundeDAO.find(kundenId);
-		kunde.getAutos().remove(auto);
-		auto.getKunden().remove(kunde);
-		EntityManagerHelper.commitAndCloseTransaction();
-	}
 }

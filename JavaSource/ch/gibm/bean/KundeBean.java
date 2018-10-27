@@ -26,33 +26,6 @@ public class KundeBean extends AbstractBean implements Serializable {
 	private List<Kunde> kunden;
 	private KundeFacade kundeFacade;
 	
-	public void addAutoToKunde() {
-		try {
-			getKundenFacade().addAutoToKunde(auto.getId(), kundeWithAutos.getId());
-			closeDialog();
-			displayInfoMessageToUser("Added with success");
-			reloadKundeWithAutos();
-			resetAuto();
-		} catch (Exception e) {
-			keepDialogOpen();
-			displayErrorMessageToUser("A problem occurred while saving. Try again later");
-			e.printStackTrace();
-		}
-	}
-
-	public void removeLanguageFromPerson() {
-		try {
-			getKundenFacade().removeAutoFromKunde(auto.getId(), kundeWithAutos.getId());
-			closeDialog();
-			displayInfoMessageToUser("Removed with success");
-			reloadKundeWithAutos();
-			resetAuto();
-		} catch (Exception e) {
-			keepDialogOpen();
-			displayErrorMessageToUser("A problem occurred while removing. Try again later");
-			e.printStackTrace();
-		}
-	}
 	
 	
 	private void reloadKundeWithAutos() {

@@ -25,8 +25,6 @@ public class Kunde {
 	private String postleitzahl;
 	private String ort;
 	
-	@ManyToMany(mappedBy="kunde")
-	private List<Auto> autos;
 
 	public int getId() {
 		return id;
@@ -85,13 +83,6 @@ public class Kunde {
 		this.ort = ort;
 	}	
 
-	public List<Auto> getAutos() {
-		return autos;
-	}
-
-	public void setAutos(List<Auto> autos) {
-		this.autos = autos;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
