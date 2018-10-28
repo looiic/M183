@@ -9,25 +9,30 @@
 		id="kundeCreateDialogId" height="350" width="500" modal="true"
 		closable="true" draggable="false" resizable="false">
 		<h:form id="kundeCreateDialogForm" prependId="false">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="3">
 				<h:outputText value="* #{bundle.kundeVorname}" />
-				<h:inputText value="#{kundeBean.kunde.vorname}" required="true" label="#{bundle.kundeVorname}" />
+				<h:inputText value="#{kundeBean.kunde.vorname}" validator="#{kundeBean.validateName}" required="true" requiredMessage="Vorname is required" label="#{bundle.kundeVorname}" id="kundeVorname" />
+				<h:message id="messageKunde1" for="kundeVorname" style="color:red"/>
 				
 				<h:outputText value="* #{bundle.kundeNachname}" />
-				<h:inputText value="#{kundeBean.kunde.nachname}" required="true" label="#{bundle.kundeNachname}" />
+				<h:inputText value="#{kundeBean.kunde.nachname}" validator="#{kundeBean.validateName}" required="true" requiredMessage="Nachname is required" label="#{bundle.kundeNachname}" id="kundeNachname" />
+				<h:message id="messageKunde2" for="kundeNachname" style="color:red"/>
 				
 				<h:outputText value="* #{bundle.kundeStrasse}" />
-				<h:inputText value="#{kundeBean.kunde.strasse}" required="true" label="#{bundle.kundeStrasse}" />
+				<h:inputText value="#{kundeBean.kunde.strasse}" required="true" requiredMessage="Strasse is required" label="#{bundle.kundeStrasse}" id="kundeStrasse" />
+				<h:outputText value=""></h:outputText>
 				
 				<h:outputText value="* #{bundle.kundeHausnummer}" />
-				<h:inputText value="#{kundeBean.kunde.hausnummer}" required="true" label="#{bundle.kundeHausnummer}" />
+				<h:inputText value="#{kundeBean.kunde.hausnummer}" required="true" requiredMessage="Hausnummer is required" label="#{bundle.kundeHausnummer}" id="kundeHausnummer" />
+				<h:outputText value=""></h:outputText>
 		
 				<h:outputText value="* #{bundle.kundePostleitzahl}" />
-				<h:inputText value="#{kundeBean.kunde.postleitzahl}" required="true" label="#{bundle.kundePostleitzahl}" />
+				<h:inputText value="#{kundeBean.kunde.postleitzahl}" required="true" requiredMessage="PLZ is required" label="#{bundle.kundePostleitzahl}" id="kundePLZ" />
+				<h:outputText value=""></h:outputText>
 				
 				<h:outputText value="* #{bundle.kundeOrt}" />
-				<h:inputText value="#{kundeBean.kunde.ort}" required="true" label="#{bundle.kundeOrt}" />
-				
+				<h:inputText value="#{kundeBean.kunde.ort}" required="true" requiredMessage="Ort is required" label="#{bundle.kundeOrt}" id="kundeOrt" />
+				<h:outputText value=""></h:outputText>
 				
 				<p:commandButton value="#{bundle.create}" icon="ui-icon-plus"
 					action="#{kundeBean.createKunde()}"

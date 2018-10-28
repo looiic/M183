@@ -45,5 +45,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.47.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Loïc Jermann/Downloads/apache-log4j-2.11.1-bin/log4j-api-2.11.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Loïc Jermann/Downloads/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/Owasp.CsrfGuard.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

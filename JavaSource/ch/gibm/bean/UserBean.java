@@ -32,7 +32,7 @@ public class UserBean extends AbstractBean implements Serializable{
 	}
 
 	public User getLoggedInUser() {
-		return loggedInUser;
+		return this.loggedInUser;
 	}
 
 	public void setLoggedInUser(User user) {

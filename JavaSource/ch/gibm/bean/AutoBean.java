@@ -3,8 +3,12 @@ package ch.gibm.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import org.apache.log4j.Logger;
 
@@ -121,4 +125,19 @@ public class AutoBean extends AbstractBean implements Serializable {
 	public void resetAuto() {
 		auto = new Auto();
 	}
+	
+	public void validateName(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		String name = (String) value;
+		  if (name.length() > 30 || name.length() < 1) {
+		    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Min. 1 Zeichen Max. 30 Zeichen", "Min. 1 Zeichen Max. 30 Zeichen"));
+		  }
+	}
+	
+	public void validateJahrgang(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		int jg = (int) value;
+		  if (jg < 1000 || jg > 9999) {
+		    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Jahrgang darf nur 4 Stellig sein", "Jahrgang darf nur 4 Stellig sein"));
+		  }
+	}
+	
 }

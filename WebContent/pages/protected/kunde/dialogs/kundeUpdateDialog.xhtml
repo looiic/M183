@@ -13,10 +13,12 @@
 			
 			
 				<h:outputText value="* #{bundle.kundeVorname}" />
-				<h:inputText value="#{kundeBean.kunde.vorname}" required="true" label="#{bundle.kundeVorname}" />
+				<h:inputText value="#{kundeBean.kunde.vorname}" validator="#{kundeBean.validateName}" required="true" label="#{bundle.kundeVorname}" id="updateVorname"/>
+				<h:message id="messageKundeUpdate1" for="updateVorname" style="color:red"/>
 				
 				<h:outputText value="* #{bundle.kundeNachname}" />
-				<h:inputText value="#{kundeBean.kunde.nachname}" required="true" label="#{bundle.kundeNachname}" />
+				<h:inputText value="#{kundeBean.kunde.nachname}" validator="#{kundeBean.validateName}" required="true" label="#{bundle.kundeNachname}" id="updateNachname" />
+				<h:message id="messageKundeUpdate2" for="updateNachname" style="color:red"/>
 				
 				<h:outputText value="* #{bundle.kundeStrasse}" />
 				<h:inputText value="#{kundeBean.kunde.strasse}" required="true" label="#{bundle.kundeStrasse}" />

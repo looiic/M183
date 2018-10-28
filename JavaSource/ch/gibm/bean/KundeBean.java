@@ -3,8 +3,12 @@ package ch.gibm.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import ch.gibm.entity.Auto;
 import ch.gibm.entity.Kunde;
@@ -26,11 +30,9 @@ public class KundeBean extends AbstractBean implements Serializable {
 	private List<Kunde> kunden;
 	private KundeFacade kundeFacade;
 	
+	private UserBean userBean;
 	
-	
-	private void reloadKundeWithAutos() {
-		//kundeWithAutos = getKundenFacade().findKundeWithAllAutos(kunde.getId());
-	}
+
 	
 	public void resetAuto() {
 		auto = new Auto();
@@ -39,44 +41,50 @@ public class KundeBean extends AbstractBean implements Serializable {
 	
 
 	public void createKunde() {
-		try {
-			getKundenFacade().createKunde(kunde);
-			closeDialog();
-			displayInfoMessageToUser("Created with success");
-			loadKunden();
-			resetKunde();
-		} catch (Exception e) {
-			keepDialogOpen();
-			displayErrorMessageToUser("A problem occurred while saving. Try again later");
-			e.printStackTrace();
+		if(userBean.isCurrentUserAdmin()) {
+			try {
+				getKundenFacade().createKunde(kunde);
+				closeDialog();
+				displayInfoMessageToUser("Created with success");
+				loadKunden();
+				resetKunde();
+			} catch (Exception e) {
+				keepDialogOpen();
+				displayErrorMessageToUser("A problem occurred while saving. Try again later");
+				e.printStackTrace();
+			}			
 		}
 	}
 
 	public void updateKunde() {
-		try {
-			getKundenFacade().updateKunde(kunde);
-			closeDialog();
-			displayInfoMessageToUser("Updated with success");
-			loadKunden();
-			resetKunde();
-		} catch (Exception e) {
-			keepDialogOpen();
-			displayErrorMessageToUser("A problem occurred while updating. Try again later");
-			e.printStackTrace();
+		if(userBean.isCurrentUserAdmin()) {
+			try {
+				getKundenFacade().updateKunde(kunde);
+				closeDialog();
+				displayInfoMessageToUser("Updated with success");
+				loadKunden();
+				resetKunde();
+			} catch (Exception e) {
+				keepDialogOpen();
+				displayErrorMessageToUser("A problem occurred while updating. Try again later");
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void deleteKunde() {
-		try {
-			getKundenFacade().deleteKunde(kunde);
-			closeDialog();
-			displayInfoMessageToUser("Deleted with success");
-			loadKunden();
-			resetKunde();
-		} catch (Exception e) {
-			keepDialogOpen();
-			displayErrorMessageToUser("A problem occurred while removing. Try again later");
-			e.printStackTrace();
+		if(userBean.isCurrentUserAdmin()) {
+			try {
+				getKundenFacade().deleteKunde(kunde);
+				closeDialog();
+				displayInfoMessageToUser("Deleted with success");
+				loadKunden();
+				resetKunde();
+			} catch (Exception e) {
+				keepDialogOpen();
+				displayErrorMessageToUser("A problem occurred while removing. Try again later");
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -131,4 +139,12 @@ public class KundeBean extends AbstractBean implements Serializable {
 	public void resetKunde() {
 		kunde = new Kunde();
 	}
+	
+	public void validateName(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		String name = (String) value;
+		  if (name.length() > 30 || name.length() < 1) {
+		    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validierung fehlgeschlagen", "Validierung fehlgeschlagen"));
+		  }
+		}
+	
 }

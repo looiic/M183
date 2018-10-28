@@ -9,16 +9,19 @@
 		id="autoUpdateDialogId" height="150" width="500" modal="true"
 		closable="true" draggable="false" resizable="false">
 		<h:form id="autoUpdateDialogForm" prependId="false">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="3">
 				<h:outputText value="* #{bundle.autoName}" />
-				<h:inputText value="#{autoBean.auto.name}" required="true" label="#{bundle.autoName}" />
+				<h:inputText value="#{autoBean.auto.name}" validator="#{autoBean.validateName}" required="true" label="#{bundle.autoName}" id="autoName"/>
+				<h:message id="messageUpdate1" for="autoName" style="color:red"/>
 				
 				<h:outputText value="* #{bundle.autoJahrgang}" />
-				<h:inputText value="#{autoBean.auto.jahrgang}" required="true" converterMessage="Bitte eine Zahl eingeben" label="#{bundle.autoJahrgang}" />
+				<h:inputText value="#{autoBean.auto.jahrgang}" validator="#{autoBean.validateJahrgang}" required="true" converterMessage="Bitte eine Zahl eingeben" label="#{bundle.autoJahrgang}" id="autoJahrgang" />
+				<h:message id="messageUpdate2" for="autoJahrgang" style="color:red"/>
 				
 				<h:outputText value="* Arbeit fertig?" />
 				<h:selectBooleanCheckbox value="#{autoBean.auto.status}" label="#{bundle.autoStatus}" required="true" />
-		
+				<h:outputText value=""></h:outputText>
+				
 				<p:commandButton value="#{bundle.update}" icon="ui-icon-plus"
 					action="#{autoBean.updateAuto()}"
 					update=":messageGrowl :autosForm:autosTable"

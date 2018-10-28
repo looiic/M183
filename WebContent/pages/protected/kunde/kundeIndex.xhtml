@@ -40,18 +40,18 @@
 					
 					
 					<p:column>
-						<p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":kundeUpdateDialogForm" onclick="PF('kundeUpdateDialogWidget').show()" >
+						<p:commandButton value="#{bundle.update}" rendered="#{userBean.currentUserAdmin}" icon="ui-icon-pencil" update=":kundeUpdateDialogForm" onclick="PF('kundeUpdateDialogWidget').show()" >
 							<f:setPropertyActionListener target="#{kundeBean.kunde}" value="#{kunde}" />
 						</p:commandButton>
 						<p:spacer width="10px" />
-						<p:commandButton value="#{bundle.delete}" icon="ui-icon-trash" update=":kundeDeleteDialogForm" onclick="PF('kundeDeleteDialogWidget').show()" >
+						<p:commandButton value="#{bundle.delete}" rendered="#{userBean.currentUserAdmin}" icon="ui-icon-trash" update=":kundeDeleteDialogForm" onclick="PF('kundeDeleteDialogWidget').show()" >
 							<f:setPropertyActionListener target="#{kundeBean.kunde}" value="#{kunde}" />
 						</p:commandButton>
 						<p:spacer width="10px" />
 					</p:column>
 
 				</p:dataTable>
-				<p:commandButton value="#{bundle.create} #{bundle.kunde}" icon="ui-icon-plus" update=":kundeCreateDialogForm"
+				<p:commandButton rendered="#{userBean.currentUserAdmin}" value="#{bundle.create} #{bundle.kunde}" icon="ui-icon-plus" update=":kundeCreateDialogForm"
 					actionListener="#{kundeBean.resetKunde()}" onclick="PF('kundeCreateDialogWidget').show()" />
 			</h:form>
 
